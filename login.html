@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Secret pour Toi ❤️</title>
+    <!-- Polices Google Fonts optimisées pour faire-part romantique -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+<body>
+    <!-- Lecteur audio caché avec contrôles avancés -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="./assets/audio/John Legend - All Of Me (Karaoke Version) [6VoT-KrseHA].mp3" type="audio/mpeg">
+        <source src="./assets/audio/John Legend - All Of Me (Karaoke Version) [6VoT-KrseHA].mp3" type="audio/ogg">
+        Votre navigateur ne supporte pas l'audio.
+    </audio>
+
+    <!-- Contrôleur audio flottant -->
+    <button id="musicToggle" class="music-control" aria-label="Activer/Désactiver la musique">
+        <span class="music-icon">🎵</span>
+        <span class="music-status">Musique ON</span>
+    </button>
+
+    <div class="container">
+        <div class="login-card">
+            <div class="heart-glow"></div>
+            <h1 class="romantic-title">Une surprise rien que pour toi ❤️</h1>
+            <p class="subtitle handwritten">Entre mon prénom pour découvrir ta surprise...</p>
+            
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="password" class="sr-only">Mot de passe secret</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Ton mot de passe secret..."
+                        autocomplete="current-password"
+                        required
+                    >
+                    <div class="input-border"></div>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span class="btn-text-main">Ouvre ton cadeau</span>
+                   
+                    <div class="btn-glow"></div>
+                </button>
+            </form>
+            
+            <div id="errorMessage" class="error-message" role="alert" aria-live="polite">
+                <span class="error-handwritten">Hmm...</span> Le mot de passe n'est pas le bon. Essaie encore, mon amour 💕
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

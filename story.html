@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,9 +11,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Bouton Audio Discret (coin supérieur droit) -->
+    <div class="audio-toggle">
+        <button class="audio-btn active" id="audioToggle" aria-label="Toggle music">
+            <svg class="sound-on" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+            <svg class="sound-off" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03V16c1.48-.73 2.5-2.25 2.5-4.02zM18.97 3.34l-1.41 1.41C15.51 5.37 14 6.96 14 9v2h3l4 4 1.41-1.41L19.41 12H22v-2h-2.59l2.45-2.45-1.41-1.41-2.07 2.07-.04-.04zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+        </button>
+    </div>
+
     <custom-header></custom-header>
+    
     <main class="story-container">
-<!-- J - Joie -->
+        <!-- J - Joie -->
         <section class="letter-card" data-letter="J">
             <div class="image-container">
                 <img src="assets/images/J.jpg" alt="Joie" class="letter-image">
@@ -91,11 +103,56 @@
             </div>
         </section>
     </main>
+    
     <custom-footer></custom-footer>
+
+    <!-- Audio démarre par défaut -->
+    <audio id="backgroundMusic" loop autoplay preload="auto" volume="0.4">
+        <source src="./assets/audio/Rétine karaoké [19KirQ6z4gU].mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas l'audio HTML5.
+    </audio>
+
     <script src="components/header.js"></script>
     <script src="components/footer.js"></script>
     <script src="js/typing.js"></script>
     <script src="js/story.js"></script>
     <script src="script.js"></script>
+    
+    <!-- Script Audio - DÉMARRE AUTOMATIQUE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('backgroundMusic');
+            const toggleBtn = document.getElementById('audioToggle');
+            
+            let isPlaying = true; // ✅ DÉMARRE ACTIVÉ
+            
+            // Relance si bloqué par navigateur
+            const startMusic = () => {
+                audio.volume = 0.4;
+                audio.play().then(() => {
+                    toggleBtn.classList.add('active');
+                }).catch(() => {
+                    // Retry après interaction utilisateur
+                    document.addEventListener('click', startMusic, { once: true });
+                });
+            };
+            
+            startMusic();
+            
+            // Toggle ON/OFF
+            toggleBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    toggleBtn.classList.remove('active');
+                    isPlaying = false;
+                } else {
+                    audio.volume = 0.4;
+                    audio.play();
+                    toggleBtn.classList.add('active');
+                    isPlaying = true;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

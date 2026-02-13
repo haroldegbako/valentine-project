@@ -42,6 +42,7 @@ body {
     overflow: hidden;
     position: relative;
     line-height: 1.5;
+    padding: 20px; /* aide sur très petits écrans */
 }
 
 @keyframes gradientShift {
@@ -147,6 +148,7 @@ body::before {
     background-size: 200px 120px;
     animation: float 20s linear infinite;
     opacity: 0.4;
+    z-index: -1;
 }
 
 @keyframes float {
@@ -162,7 +164,7 @@ body::before {
     max-width: 420px;
     padding: 20px;
     animation: fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    margin-right: 80px; /* Espace pour contrôle audio */
+    margin-right: 80px; /* Espace pour contrôle audio sur grand écran */
 }
 
 /* Carte centrale - Glassmorphism premium */
@@ -431,54 +433,86 @@ body::before {
 /* ==========================================================================
    RESPONSIVE MOBILE-FIRST
    ========================================================================== */
+
+/* Téléphones jusqu’à 480px */
 @media (max-width: 480px) {
-    .container {
-        padding: 15px;
-        max-width: 100%;
-        margin-right: 20px;
+    body {
+        padding: 12px;
+        align-items: center;
+        justify-content: center;
+        overflow: auto; /* permet de scroller si contenu trop haut */
     }
-    
+
+    .container {
+        padding: 10px;
+        max-width: 100%;
+        margin-right: 0;        /* pas de marge pour audio */
+    }
+
+    .login-card {
+        padding: 32px 22px;
+        margin: 0 auto;
+        border-radius: 26px;
+    }
+
     .music-control {
-        top: 16px;
-        right: 16px;
+        top: 12px;
+        right: 12px;
         --music-control-size: 48px;
     }
-    
-    .login-card {
-        padding: 35px 28px;
-        margin: 0 10px;
-    }
-    
+
     .romantic-title {
         letter-spacing: -0.01em;
     }
-    
+
     .subtitle {
+        margin-bottom: 28px;
         letter-spacing: 0.01em;
     }
-    
-    /* Optimisation lisibilité mobile */
+
     #password {
-        font-size: 1rem;
-        padding: 18px 22px;
+        font-size: 1rem;        /* évite le zoom iOS */
+        padding: 16px 20px;
     }
-    
+
     .login-btn {
-        padding: 18px 30px;
-        font-size: 1.05rem;
+        padding: 16px 26px;
+        font-size: 1.02rem;
+    }
+
+    .music-status {
+        display: none;          /* évite qu’il sorte de l’écran */
     }
 }
 
+/* Très petits écrans (vieux téléphones) */
 @media (max-width: 360px) {
+    .container {
+        padding: 8px;
+    }
+
+    .login-card {
+        padding: 26px 18px;
+    }
+
+    .romantic-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .subtitle {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+    }
+
     .music-control {
         --music-control-size: 44px;
+        top: 10px;
+        right: 10px;
     }
-    
+}
+
+/* Tablettes / petits laptops : on réduit juste l’espace à droite */
+@media (min-width: 481px) and (max-width: 900px) {
     .container {
-        margin-right: 15px;
-    }
-    
-    .login-card {
-        padding: 30px 25px;
+        margin-right: 40px;
     }
 }
